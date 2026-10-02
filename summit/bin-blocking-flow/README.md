@@ -10,6 +10,7 @@ Two deliverables:
 | File | Use |
 |---|---|
 | `deck/bin-blocking-summit-deck.pptx` | **Present from this.** Editable PowerPoint, 8 slides, speaker notes on every slide |
+| `deck/bin-blocking-summit-deck.pdf` | PDF of the deck, for sharing or a quick look |
 | `bin-blocking-process-flow.png` / `.pdf` | One-page reference. Handout, poster or Q&A backup; too dense to present from |
 | `deck/build-deck.cjs` | Deck source. `cd deck && npm install && npm run build` |
 | `index.html`, `render.cjs` | One-pager source. `node render.cjs` (needs Playwright + Chromium) |
@@ -31,7 +32,7 @@ Built for a projected room: titles 28–46pt, body text no smaller than 11pt, on
 | 5 | Part 3: who owns it | 1LOD / 2LOD / 3LOD, plus the three numbers: weekly, 2 hours, 1 hour |
 | 6 | What makes it hard | Name matching, BIN precision, list-to-BIN lag, ownership and control. *Optional* |
 | 7 | Takeaways | Three things to remember |
-| 8 | Appendix | The one-page reference |
+| 8 | Appendix | The one-page reference, full-slide |
 
 For a short panel slot, slides 3 and 4 are the flow chart on their own. Amber marks the points
 where a person decides: 2LOD approval of every list change, including shared-BIN exceptions.

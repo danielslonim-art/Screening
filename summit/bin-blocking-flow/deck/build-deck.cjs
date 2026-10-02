@@ -51,26 +51,27 @@ async function icon(name, hex, size = 256) {
 
 // ---------- Layouts ----------
 const footer = color => ({ text: { text: 'Checkout.com Global Screening · Draft for Compliance sign-off',
-  options: { x: 7.2, y: 7.0, w: 5.0, h: 0.3, align: 'right', margin: 0, fontSize: 10, color } } });
-const titlePh = (color, y, size) => ({ placeholder: { options: { name: 'title', type: 'title', x: 0.6, y, w: 8.0, h: 0.95,
+  options: { x: 7.2, y: 6.9, w: 5.0, h: 0.3, align: 'right', valign: 'middle', margin: 0, fontSize: 10, color } } });
+const titlePh = (color, y, size) => ({ placeholder: { options: { name: 'title', type: 'title', x: 0.6, y, w: 7.7, h: 0.95,
   fontSize: size, bold: true, color, align: 'left', valign: 'top', margin: 0, fontFace: THEME.headFontFace }, text: '' } });
 
 pres.defineSlideMaster({ title: 'COVER', background: { color: INK }, objects: [] });
+pres.defineSlideMaster({ title: 'BLANK', background: { color: WHITE }, objects: [] });
 pres.defineSlideMaster({
   title: 'CONTENT', background: { color: WHITE },
   objects: [footer(MUTED), titlePh(INK, 0.42, 28)],
-  slideNumber: { x: 12.33, y: 7.0, w: 0.4, h: 0.3, fontSize: 10, color: MUTED, align: 'right' },
+  slideNumber: { x: 12.33, y: 6.9, w: 0.4, h: 0.3, valign: 'middle', fontSize: 10, color: MUTED, align: 'right' },
 });
 pres.defineSlideMaster({
   title: 'DARK', background: { color: INK },
   objects: [footer(SLATE), titlePh(WHITE, 0.6, 32)],
-  slideNumber: { x: 12.33, y: 7.0, w: 0.4, h: 0.3, fontSize: 10, color: SLATE, align: 'right' },
+  slideNumber: { x: 12.33, y: 6.9, w: 0.4, h: 0.3, valign: 'middle', fontSize: 10, color: SLATE, align: 'right' },
 });
 
 // ---------- Helpers ----------
 const T = (slide, text, opts) => slide.addText(text, { isTextBox: true, margin: 0, valign: 'top', ...opts });
 const source = (slide, refs, dark = false) =>
-  T(slide, `Source: ${SRC} ${refs}`, { x: 0.6, y: 7.0, w: 6.4, h: 0.3, fontSize: 10, color: dark ? SLATE : MUTED });
+  T(slide, `Source: ${SRC} ${refs}`, { x: 0.6, y: 6.9, w: 6.4, h: 0.3, valign: 'middle', fontSize: 10, color: dark ? SLATE : MUTED });
 // Straight connector; arrowhead at (x2,y2) unless head === false.
 function line(slide, x1, y1, x2, y2, { color = SLATE, width = 1.75, dash, head = true } = {}) {
   slide.addShape(S.LINE, {
@@ -154,7 +155,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
     const y = 5.85;
     const nodes = [[1.0, 'Merchant', true], [4.2, 'Checkout.com', true], [8.4, 'Card scheme', false], [12.1, 'Sanctioned issuer', false]];
     line(s, 1.0, y, 6.05, y, { color: INDIGO, width: 3, head: false });
-    line(s, 6.05, y, 12.3, y, { color: SLATE, width: 2, dash: true, head: false });
+    line(s, 6.05, y, 12.1, y, { color: SLATE, width: 2, dash: true, head: false });
     nodes.forEach(([nx, label, live]) => {
       s.addShape(S.OVAL, { x: nx - 0.1, y: y - 0.1, w: 0.2, h: 0.2, fill: { color: live ? INDIGO : SLATE }, line: { type: 'none' } });
       T(s, label, { x: nx - 1.0, y: y + 0.22, w: 2.0, h: 0.3, fontSize: 12, color: live ? CANVAS : SLATE, align: 'center' });
@@ -176,11 +177,11 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
     const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'Opening' });
     s.addText('We block sanctioned banks ourselves, inside our own payment flow', { placeholder: 'title' });
 
-    const y = 2.05, h = 1.05, w = 2.35, xs = [0.6, 3.85, 7.1, 10.38];
+    const y = 2.05, h = 1.05, w = 2.25, xs = [0.6, 3.89, 7.18, 10.48];
     const nodes = [
       ['Merchant', 'Starts a card payment or payout', I.store],
       ['Checkout.com', 'Processes it and earns the fee', I.shieldW],
-      ['Card scheme', 'Acquirers and schemes route it onward', I.network],
+      ['Card scheme', 'Routes it to the bank', I.network],
       ['Issuing bank', 'Could be sanctioned', I.bank],
     ];
     nodes.forEach(([t, d, ic], i) => {
@@ -190,16 +191,15 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       T(s, t, { x: x + 0.62, y: y + 0.15, w: w - 0.72, h: 0.45, fontSize: 14, bold: true, color: ours ? WHITE : bank ? RED : INK, valign: 'middle' });
       T(s, d, { x: x + 0.62, y: y + 0.6, w: w - 0.72, h: 0.38, fontSize: 11, color: ours ? CANVAS : MUTED });
     });
-    line(s, 2.95, y + h / 2, 3.83, y + h / 2);
-    line(s, 6.2, y + h / 2, 7.08, y + h / 2);
-    line(s, 9.45, y + h / 2, 10.36, y + h / 2, { dash: true });
-    disc(s, 6.38, y + h / 2 - 0.26, 0.52, '', { fill: RED });
-    s.addImage({ data: I.shieldW, x: 6.51, y: y + h / 2 - 0.13, w: 0.26, h: 0.26 });
+    for (let i = 0; i < 3; i++) line(s, xs[i] + w + 0.04, y + h / 2, xs[i + 1] - 0.06, y + h / 2, { dash: i === 2 });
+    const mx = (xs[1] + w + xs[2]) / 2;
+    disc(s, mx - 0.26, y + h / 2 - 0.26, 0.52, '', { fill: RED });
+    s.addImage({ data: I.shieldW, x: mx - 0.13, y: y + h / 2 - 0.13, w: 0.26, h: 0.26 });
     T(s, [{ text: 'The check runs here', options: { bold: true, color: RED, breakLine: true } },
           { text: 'after the issuer BIN is extracted, before anything reaches the scheme', options: { color: INK } }],
-      { x: 4.95, y: y + h + 0.2, w: 3.4, h: 0.65, fontSize: 13, align: 'center' });
-    T(s, 'We have no direct relationship with the issuing bank', { x: 8.0, y: y - 0.5, w: 4.73, h: 0.35, fontSize: 12, italic: true, color: MUTED, align: 'center' });
-    line(s, 8.28, y - 0.12, 12.45, y - 0.12, { color: LINE, width: 1, head: false });
+      { x: mx - 1.7, y: y + h + 0.2, w: 3.4, h: 0.65, fontSize: 13, align: 'center' });
+    T(s, 'We have no direct relationship with the issuing bank', { x: xs[2], y: y - 0.62, w: 12.73 - xs[2], h: 0.35, fontSize: 12, italic: true, color: MUTED, align: 'center' });
+    line(s, xs[2], y - 0.22, 12.73, y - 0.22, { color: LINE, width: 1, head: false });
 
     T(s, 'WHAT WE ARE EXPOSED TO', { x: 0.6, y: 4.2, w: 6, h: 0.3, fontSize: 11, bold: true, color: MUTED, charSpacing: 2 });
     const cards = [
@@ -238,7 +238,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       ['Validate & approve', ['Manual check so legitimate banks are not blocked', 'Sanctions Team (2LOD) gives the final approval']],
       ['Deploy & verify', ['Controlled upload to fraud and payout systems', 'Post-deployment check that the block is live']],
     ];
-    const top = 1.75, cw = 2.78, gap = 0.333, ch = 2.55;
+    const top = 1.85, cw = 2.78, gap = 0.333, ch = 2.5;
     phases.forEach(([name, steps], i) => {
       const x = 0.6 + i * (cw + gap), human = i === 2;
       card(s, x, top, cw, ch, { fill: human ? AMBER : CANVAS, transparency: human ? 88 : undefined, border: human ? AMBER : null, name: 'phase-' + (i + 1) });
@@ -251,7 +251,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
     });
 
     // Weekly loop: phase 4 back to phase 1
-    const ly = top + ch + 0.38;
+    const ly = top + ch + 0.45;
     const c1 = 0.6 + cw / 2, c4 = 0.6 + 3 * (cw + gap) + cw / 2;
     polyline(s, [[c4, top + ch], [c4, ly], [c1, ly], [c1, top + ch + 0.02]], { dash: true, width: 1.5 });
     s.addShape(S.ROUNDED_RECTANGLE, { x: 2.3, y: ly - 0.19, w: 8.7, h: 0.38, rectRadius: 0.17, fill: { color: WHITE }, line: { color: SLATE, width: 1, dashType: 'dash' } });
@@ -259,19 +259,20 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
           { text: 'the full cycle runs again, and the Register is reconciled fortnightly against industry lists', options: { color: MUTED } }],
       { x: 2.4, y: ly - 0.19, w: 8.5, h: 0.38, fontSize: 12, align: 'center', valign: 'middle' });
 
-    s.addText('Output: the Sanctioned BIN List, used in Part 2', { shape: S.ROUNDED_RECTANGLE, rectRadius: 0.17, x: 8.72, y: 1.25, w: 4.01, h: 0.36,
+    s.addText('Output: the Sanctioned BIN List, used in Part 2', { shape: S.ROUNDED_RECTANGLE, rectRadius: 0.17, x: 8.72, y: 1.2, w: 4.01, h: 0.34,
       fill: { color: INDIGO }, line: { type: 'none' }, fontSize: 12, bold: true, color: WHITE, align: 'center', valign: 'middle', margin: 0 });
 
     // Emergency route
-    const ey = 5.4;
+    const ey = 5.3;
     card(s, 0.6, ey, 12.13, 1.2, { fill: RED, transparency: 92, border: RED, name: 'emergency' });
     iconDisc(s, I.bolt, 0.9, ey + 0.27, 0.66, { fill: RED, transparency: 85 });
     T(s, 'Emergency route for a major designation', { x: 1.8, y: ey + 0.2, w: 7.5, h: 0.4, fontSize: 17, bold: true, color: RED });
     T(s, 'Expedited approval, and a temporary block goes in before full BIN regeneration. Documentation and validation are completed afterwards.',
       { x: 1.8, y: ey + 0.6, w: 7.6, h: 0.5, fontSize: 13, color: INK });
     T(s, [{ text: '2 hours', options: { fontSize: 30, bold: true, color: RED, breakLine: true } },
-          { text: 'to update the Register after a major designation', options: { fontSize: 11, color: INK } }],
-      { x: 9.6, y: ey + 0.14, w: 2.95, h: 0.95, align: 'right' });
+          { text: 'to update the Register', options: { fontSize: 11, color: INK, breakLine: true } },
+          { text: 'after a major designation', options: { fontSize: 11, color: INK } }],
+      { x: 9.4, y: ey + 0.12, w: 3.0, h: 1.0, align: 'right' });
     source(s, '§6.2, §7.3, §7.4, §8.2, §9.1, §9.3, §10.1, §10.4');
     s.addNotes([
       'Part one is the list. When a bank is designated, we identify it, and anything it owns or controls, in our sanctions data.',
@@ -308,7 +309,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       [I.cardInk, 'Card acquiring', 'Processing-In: merchant card payments', 'Issuer BIN vs the Sanctioned BIN List', 'Fraud Detection solution, before authorisation', 'Standard authorisation'],
       [I.payoutInk, 'Payout to card', 'Processing-Out: including refunds where the BIN is available', 'Card BIN vs the Sanctioned BIN List', 'Payout validation layer, before settlement', 'Standard settlement'],
     ];
-    const ry0 = 2.78, rh = 1.42, rg = 0.3;
+    const ry0 = 2.75, rh = 1.36, rg = 0.25;
     rows.forEach(([ic, name, sub, check, where, no], i) => {
       const y = ry0 + i * (rh + rg), mid = y + rh / 2;
       card(s, 0.6, y, 2.95, rh, { fill: CANVAS, border: null, name: 'rail-' + i });
@@ -316,10 +317,10 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       T(s, name, { x: 1.4, y: y + 0.25, w: 2.05, h: 0.45, fontSize: 19, bold: true, color: INK, valign: 'middle' });
       T(s, sub, { x: 0.85, y: y + 0.8, w: 2.55, h: 0.5, fontSize: 12, color: MUTED });
       line(s, 3.57, mid, 3.83, mid, { width: 2 });
-      card(s, 3.85, y, 3.95, rh, { fill: WHITE, border: LINE, name: 'check-' + i });
-      T(s, check, { x: 4.1, y: y + 0.28, w: 3.5, h: 0.45, fontSize: 17, bold: true, color: INK, valign: 'middle' });
-      T(s, where, { x: 4.1, y: y + 0.82, w: 3.5, h: 0.35, fontSize: 12, color: MUTED });
-      line(s, 7.82, mid, 7.93, mid, { width: 2 });
+      card(s, 3.85, y, 3.7, rh, { fill: WHITE, border: LINE, name: 'check-' + i });
+      T(s, check, { x: 4.1, y: y + 0.22, w: 3.3, h: 0.6, fontSize: 17, bold: true, color: INK, valign: 'middle' });
+      T(s, where, { x: 4.1, y: y + 0.86, w: 3.3, h: 0.35, fontSize: 12, color: MUTED });
+      line(s, 7.57, mid, 7.91, mid, { width: 2 });
       s.addText('Match?', { shape: S.DIAMOND, x: 7.95, y: mid - 0.52, w: 1.3, h: 1.04, fill: { color: WHITE }, line: { color: SLATE, width: 1.25 },
         fontSize: 13, bold: true, color: INK, align: 'center', valign: 'middle', margin: 0 });
       const oh = 0.6, fx = 9.3;
@@ -329,7 +330,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       outcome(s, 'pass', no, ox, y + rh - oh, ow, oh);
     });
 
-    banner(s, 0.6, 6.2, 12.13, 0.52, [
+    banner(s, 0.6, 6.0, 12.13, 0.5, [
       { text: 'On every match  ', options: { bold: true, color: WHITE } },
       { text: 'a Sanctions_Block_Event is logged and retained, and escalated per Compliance procedures where required', options: { color: CANVAS } }]);
     source(s, '§4, §7.2 (minimum requirements), §7.3.1, §8.1');
@@ -357,7 +358,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       ['3LOD', 'Internal Audit', 'Independent assurance',
         ['Tests the design and operating effectiveness of real-time BIN blocking']],
     ];
-    const heights = [1.55, 1.55, 1.3];
+    const heights = [1.65, 1.5, 1.3];
     let y = 1.75;
     lods.forEach(([tag, team, role, items], i) => {
       const h = heights[i], human = i === 1;
@@ -366,17 +367,17 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       T(s, team, { x: 0.85, y: y + 0.66, w: 2.3, h: 0.35, fontSize: 13, bold: true, color: INK });
       T(s, role, { x: 0.85, y: y + 0.96, w: 2.3, h: 0.35, fontSize: 11, color: MUTED });
       T(s, items.map((t, j) => ({ text: t, options: { bullet: { indent: 14 }, breakLine: j < items.length - 1, paraSpaceAfter: 6 } })),
-        { x: 3.3, y: y + 0.2, w: 5.2, h: h - 0.3, fontSize: 13, color: INK, valign: i === 2 ? 'middle' : 'top' });
+        { x: 3.3, y: y + 0.22, w: 5.2, h: h - 0.32, fontSize: 13, color: INK });
       y += h + 0.2;
     });
 
     [['Weekly', 'The full BIN list update cycle', INDIGO],
      ['2 hours', 'To update the Register after a major designation', RED],
      ['1 hour', 'To report any payment that did not follow the workflow', RED]].forEach(([big, small, col], i) => {
-      const sh = (1.55 + 1.55 + 1.3 + 0.4 - 0.4) / 3, sy = 1.75 + i * (sh + 0.2);
+      const sh = heights[i], sy = 1.75 + heights.slice(0, i).reduce((a, b) => a + b + 0.2, 0);
       card(s, 9.05, sy, 3.68, sh, { fill: WHITE, border: LINE, shadow: true, name: 'stat-' + i });
-      T(s, big, { x: 9.3, y: sy + 0.18, w: 3.2, h: 0.65, fontSize: 34, bold: true, color: col });
-      T(s, small, { x: 9.3, y: sy + 0.85, w: 3.2, h: 0.45, fontSize: 12, color: MUTED });
+      T(s, big, { x: 9.3, y: sy + 0.15, w: 3.2, h: 0.6, fontSize: 32, bold: true, color: col });
+      T(s, small, { x: 9.3, y: sy + 0.76, w: 3.2, h: 0.42, fontSize: 12, color: MUTED });
     });
     source(s, '§8.1, §8.2, §8.3, §9.1, §11');
     s.addNotes([
@@ -401,7 +402,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       [I.sitemap, 'Ownership isn\'t on the list', 'A bank can be sanctioned through ownership or control without being named. Finding it takes an ownership assessment, not just a list lookup.'],
     ];
     items.forEach(([ic, t, d], i) => {
-      const x = 0.6 + (i % 2) * 6.17, y = 1.75 + Math.floor(i / 2) * 2.5, w = 5.96, h = 2.3;
+      const w = (12.13 - 0.3) / 2, h = 2.2, x = 0.6 + (i % 2) * (w + 0.3), y = 1.75 + Math.floor(i / 2) * (h + 0.3);
       card(s, x, y, w, h, { fill: WHITE, border: LINE, shadow: true, name: 'lesson-' + i });
       iconDisc(s, ic, x + 0.35, y + 0.35, 0.72);
       T(s, t, { x: x + 1.3, y: y + 0.38, w: w - 1.6, h: 0.65, fontSize: 18, bold: true, color: INK, valign: 'middle' });
@@ -427,9 +428,9 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
      ['People make the decisions', 'The Sanctions Team approves every change to the list, including shared-BIN exceptions.']].forEach(([t, d], i) => {
       const x = 0.6 + i * 4.11;
       T(s, String(i + 1).padStart(2, '0'), { x, y: 2.4, w: 1.5, h: 0.9, fontSize: 48, bold: true, color: i === 2 ? AMBER : INDIGO });
-      line(s, x, 3.45, x + 3.6, 3.45, { width: 1, head: false });
+      line(s, x, 3.45, x + 3.91, 3.45, { width: 1, head: false });
       T(s, t, { x, y: 3.7, w: 3.9, h: 0.45, fontSize: 20, bold: true, color: WHITE });
-      T(s, d, { x, y: 4.25, w: 3.6, h: 1.4, fontSize: 15, color: CANVAS });
+      T(s, d, { x, y: 4.25, w: 3.8, h: 1.4, fontSize: 15, color: CANVAS });
     });
     source(s, '§6.1, §7.2, §8.2, §9.1, §10.4', true);
     s.addNotes('Close on the three ideas: we do it ourselves, before the scheme; the list is kept current on a weekly cycle with an emergency route; and a person approves every change to what gets blocked.');
@@ -440,12 +441,9 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // =====================================================================
   pres.addSection({ title: 'Appendix' });
   {
-    const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'Appendix' });
-    s.addText('Appendix: the whole process on one page', { placeholder: 'title' });
-    const w = 9.9, h = w * 1080 / 1920;
-    s.addImage({ path: HANDOUT, x: (13.333 - w) / 2, y: 1.25, w, h, altText: 'One-page process flow of sanctioned bank BIN blocking', objectName: 'handout' });
-    source(s, '§4, §6 to §11. Print the PDF version as a handout.');
-    s.addNotes('Backup slide. Use it as a handout or for Q&A; it is too dense to present from.');
+    const s = pres.addSlide({ masterName: 'BLANK', sectionTitle: 'Appendix' });
+    s.addImage({ path: HANDOUT, x: 0, y: 0, w: 13.333, h: 7.5, altText: 'Appendix: one-page process flow of sanctioned bank BIN blocking', objectName: 'handout' });
+    s.addNotes('Appendix: the whole process on one page. Backup for Q&A, and print the PDF version as a handout; it is too dense to present from.');
   }
 
   await pres.writeFile({ fileName: OUT });
