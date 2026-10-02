@@ -1,0 +1,15 @@
+{
+  "name": "bin-blocking-summit-deck",
+  "private": true,
+  "description": "Builds the summit deck for sanctioned bank BIN blocking",
+  "scripts": {
+    "build": "node build-deck.cjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "sharp": "^0.35.0"
+  }
+}
