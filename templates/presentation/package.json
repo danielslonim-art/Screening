@@ -1,0 +1,11 @@
+{
+  "name": "global-screening-presentation-template",
+  "private": true,
+  "description": "Builds the Global Screening PowerPoint template and its guide deck",
+  "scripts": {
+    "build": "node build-template.cjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

@@ -9,10 +9,10 @@ Two deliverables:
 
 | File | Use |
 |---|---|
-| `deck/bin-blocking-summit-deck.pptx` | **Present from this.** Editable PowerPoint, 8 slides, speaker notes on every slide |
+| `deck/bin-blocking-summit-deck.pptx` | **Present from this.** Editable PowerPoint, 9 slides, speaker notes on every slide |
 | `deck/bin-blocking-summit-deck.pdf` | PDF of the deck, for sharing or a quick look |
 | `bin-blocking-process-flow.png` / `.pdf` | One-page reference. Handout, poster or Q&A backup; too dense to present from |
-| `deck/build-deck.cjs` | Deck source. `cd deck && npm install && npm run build` |
+| `deck/build-deck.cjs` | Deck source, built on the Global Screening template in `templates/presentation/`. `cd deck && npm install && npm run build` |
 | `index.html`, `render.cjs` | One-pager source. `node render.cjs` (needs Playwright + Chromium) |
 | `fonts/` | Inter, for the one-pager (SIL Open Font License, see `fonts/LICENSE.txt`) |
 
@@ -32,14 +32,18 @@ Built for a projected room: titles 28–46pt, body text no smaller than 11pt, on
 | 5 | Part 3: who owns it | 1LOD / 2LOD / 3LOD, plus the three numbers: weekly, 2 hours, 1 hour |
 | 6 | What makes it hard | Name matching, BIN precision, list-to-BIN lag, ownership and control. *Optional* |
 | 7 | Takeaways | Three things to remember |
-| 8 | Appendix | The one-page reference, full-slide |
+| 8 | Questions | Closing slide |
+| 9 | Appendix | The one-page reference, full-slide |
 
 For a short panel slot, slides 3 and 4 are the flow chart on their own. Amber marks the points
 where a person decides: 2LOD approval of every list change, including shared-BIN exceptions.
 
-Fonts are Arial throughout so the deck renders the same on any machine. Colours sit in the
-theme (Design → Variants → Colors), so you can restyle to the summit's brand in one place. To
-drop it into a summit template, paste the slides with "Use destination theme".
+The deck uses the **Global Screening presentation template** (`templates/presentation/`):
+its layouts, theme and master styles are the template's, so any slide you add from
+**Home → New Slide** matches. Arial throughout, so it renders the same on any machine. To
+restyle, change the template's theme colours and rebuild both. Before sign-off, the footer
+reads "Draft for Compliance sign-off"; remove that from `FOOTER` in `build-deck.cjs` once the
+deck is approved.
 
 ## Source map
 

@@ -37,6 +37,12 @@ method lives; agents are where the role lives.
 | `name-variant-testing` | Legal-form token and transliteration corpus, and how to measure screening **recall** rather than alert volume |
 | `alert-rationale` | House format for a defensible disposition record, plus the second-line QA checklist |
 
+### Presentation template (`templates/presentation/`)
+
+A PowerPoint template for Global Screening talks: `global-screening-template.potx` with twelve
+named layouts, a guide deck, and the build scripts. Every content layout has a source line,
+because the cite-or-don't-say-it rule applies to slides too. See its README.
+
 ## Design principles behind these prompts
 
 1. **Advise, never decide.** No agent can action an alert, release a payment, or restrict an

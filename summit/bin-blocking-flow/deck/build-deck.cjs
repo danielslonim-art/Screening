@@ -9,27 +9,19 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const sharp = require('sharp');
 const Fa = require('react-icons/fa6');
-const { applyTheme } = require('./apply-theme.cjs');
+const JSZip = require(require.resolve('jszip', { paths: [require.resolve('pptxgenjs')] }));
+
+// Built on the Global Screening presentation template (templates/presentation), so the deck's
+// layouts, theme and master styles are the template's.
+const TPL = path.join(__dirname, '..', '..', '..', 'templates', 'presentation');
+const { HEX, THEME, L, G, defineLayouts } = require(path.join(TPL, 'layouts.cjs'));
+const { finish } = require(path.join(TPL, 'finish.cjs'))(JSZip);
 
 const OUT = path.join(__dirname, 'bin-blocking-summit-deck.pptx');
 const HANDOUT = path.join(__dirname, '..', 'bin-blocking-process-flow.png');
 const SRC = 'Blocking framework';
-
-// ---------- Theme ----------
-const HEX = {
-  ink: '0B1526', white: 'FFFFFF', muted: '55617A', canvas: 'F2F4F8',
-  indigo: '3446D4', red: 'C8261B', green: '12805A', amber: 'B45309', slate: '8B95A8', line: 'D3D9E3',
-};
-const THEME = {
-  name: 'BIN blocking summit',
-  headFontFace: 'Arial',
-  bodyFontFace: 'Arial',
-  colors: {
-    dk1: HEX.ink, lt1: HEX.white, dk2: HEX.muted, lt2: HEX.canvas,
-    accent1: HEX.indigo, accent2: HEX.red, accent3: HEX.green, accent4: HEX.amber,
-    accent5: HEX.slate, accent6: HEX.line, hlink: HEX.indigo, folHlink: HEX.muted,
-  },
-};
+// Remove "Draft" from the footer once Compliance has signed the deck off.
+const FOOTER = 'Checkout.com · Global Screening · Draft for Compliance sign-off';
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE';            // 13.333 x 7.5 in
@@ -37,6 +29,7 @@ pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFac
 pres.title = 'Stopping sanctioned banks at the point of payment';
 pres.subject = 'Sanctioned bank BIN blocking: process flow';
 pres.company = 'Checkout.com';
+defineLayouts(pres, { footer: FOOTER });
 const C = pres.SchemeColor;
 const INK = C.text1, MUTED = C.text2, WHITE = C.background1, CANVAS = C.background2;
 const INDIGO = C.accent1, RED = C.accent2, GREEN = C.accent3, AMBER = C.accent4, SLATE = C.accent5, LINE = C.accent6;
@@ -49,29 +42,10 @@ async function icon(name, hex, size = 256) {
   return 'image/png;base64,' + buf.toString('base64');
 }
 
-// ---------- Layouts ----------
-const footer = color => ({ text: { text: 'Checkout.com Global Screening · Draft for Compliance sign-off',
-  options: { x: 7.2, y: 6.9, w: 5.0, h: 0.3, align: 'right', valign: 'middle', margin: 0, fontSize: 10, color } } });
-const titlePh = (color, y, size) => ({ placeholder: { options: { name: 'title', type: 'title', x: 0.6, y, w: 7.7, h: 0.95,
-  fontSize: size, bold: true, color, align: 'left', valign: 'top', margin: 0, fontFace: THEME.headFontFace }, text: '' } });
-
-pres.defineSlideMaster({ title: 'COVER', background: { color: INK }, objects: [] });
-pres.defineSlideMaster({ title: 'BLANK', background: { color: WHITE }, objects: [] });
-pres.defineSlideMaster({
-  title: 'CONTENT', background: { color: WHITE },
-  objects: [footer(MUTED), titlePh(INK, 0.42, 28)],
-  slideNumber: { x: 12.33, y: 6.9, w: 0.4, h: 0.3, valign: 'middle', fontSize: 10, color: MUTED, align: 'right' },
-});
-pres.defineSlideMaster({
-  title: 'DARK', background: { color: INK },
-  objects: [footer(SLATE), titlePh(WHITE, 0.6, 32)],
-  slideNumber: { x: 12.33, y: 6.9, w: 0.4, h: 0.3, valign: 'middle', fontSize: 10, color: SLATE, align: 'right' },
-});
-
 // ---------- Helpers ----------
 const T = (slide, text, opts) => slide.addText(text, { isTextBox: true, margin: 0, valign: 'top', ...opts });
-const source = (slide, refs, dark = false) =>
-  T(slide, `Source: ${SRC} ${refs}`, { x: 0.6, y: 6.9, w: 6.4, h: 0.3, valign: 'middle', fontSize: 10, color: dark ? SLATE : MUTED });
+const source = (slide, refs) => slide.addText(`Source: ${SRC} ${refs}`, { placeholder: 'source' });
+const tag = (slide, text) => slide.addText(text, { placeholder: 'tag' });
 // Straight connector; arrowhead at (x2,y2) unless head === false.
 function line(slide, x1, y1, x2, y2, { color = SLATE, width = 1.75, dash, head = true } = {}) {
   slide.addShape(S.LINE, {
@@ -103,20 +77,9 @@ function iconDisc(slide, data, x, y, d, { fill = INDIGO, transparency = 88 } = {
   const p = d * 0.25;
   slide.addImage({ data, x: x + p, y: y + p, w: d - 2 * p, h: d - 2 * p });
 }
-// Part tracker motif (top right of the three "how it works" slides)
-function tracker(slide, active) {
-  const parts = [['The list', 1.2], ['Every payment', 1.45], ['Who owns it', 1.3]];
-  let x = 12.73 - parts.reduce((a, [, w]) => a + w, 0) - 0.16;
-  parts.forEach(([p, w], i) => {
-    const on = i + 1 === active;
-    slide.addText([{ text: `${i + 1}  `, options: { bold: true } }, { text: p }], {
-      shape: S.ROUNDED_RECTANGLE, rectRadius: 0.16, x, y: 0.48, w, h: 0.34,
-      fill: { color: on ? INK : CANVAS }, line: { type: 'none' }, fontSize: 11, color: on ? WHITE : MUTED,
-      align: 'center', valign: 'middle', margin: 0,
-    });
-    x += w + 0.08;
-  });
-}
+// Wayfinding for the three "how it works" slides, in the layout's tag placeholder
+const PARTS = ['THE LIST', 'PAYMENTS', 'OWNERSHIP'];
+const tracker = (slide, n) => tag(slide, `PART ${n} OF 3 · ${PARTS[n - 1]}`);
 function outcome(slide, kind, text, x, y, w, h) {
   const [col, glyph] = kind === 'block' ? [RED, '✕'] : [GREEN, '✓'];
   card(slide, x, y, w, h, { fill: col, transparency: 90, border: null, radius: 0.08 });
@@ -146,23 +109,16 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // =====================================================================
   pres.addSection({ title: 'Opening' });
   {
-    const s = pres.addSlide({ masterName: 'COVER', sectionTitle: 'Opening' });
-    T(s, 'GLOBAL SCREENING · SANCTIONS CONTROLS', { x: 0.8, y: 1.55, w: 8, h: 0.35, fontSize: 14, bold: true, color: SLATE, charSpacing: 3 });
-    T(s, 'Stopping sanctioned banks at the point of payment', { x: 0.8, y: 2.0, w: 9.2, h: 1.9, fontSize: 46, bold: true, color: WHITE, fontFace: THEME.headFontFace });
-    T(s, 'How our BIN blocking control works, from designation to declined payment', { x: 0.8, y: 4.0, w: 9.4, h: 0.8, fontSize: 20, color: CANVAS });
-
-    // Motif: the payment chain, stopped at our check
-    const y = 5.85;
-    const nodes = [[1.0, 'Merchant', true], [4.2, 'Checkout.com', true], [8.4, 'Card scheme', false], [12.1, 'Sanctioned issuer', false]];
-    line(s, 1.0, y, 6.05, y, { color: INDIGO, width: 3, head: false });
-    line(s, 6.05, y, 12.1, y, { color: SLATE, width: 2, dash: true, head: false });
-    nodes.forEach(([nx, label, live]) => {
-      s.addShape(S.OVAL, { x: nx - 0.1, y: y - 0.1, w: 0.2, h: 0.2, fill: { color: live ? INDIGO : SLATE }, line: { type: 'none' } });
-      T(s, label, { x: nx - 1.0, y: y + 0.22, w: 2.0, h: 0.3, fontSize: 12, color: live ? CANVAS : SLATE, align: 'center' });
-    });
-    disc(s, 5.75, y - 0.3, 0.6, '', { fill: RED });
-    s.addImage({ data: I.shieldW, x: 5.9, y: y - 0.15, w: 0.3, h: 0.3 });
-    T(s, 'Blocked here', { x: 5.05, y: y - 0.75, w: 2.0, h: 0.3, fontSize: 12, bold: true, color: 'FFB4AC', align: 'center' });
+    const s = pres.addSlide({ masterName: L.TITLE, sectionTitle: 'Opening' });
+    s.addText('GLOBAL SCREENING · SANCTIONS CONTROLS', { placeholder: 'kicker' });
+    s.addText('Stopping sanctioned banks at the point of payment', { placeholder: 'title' });
+    s.addText('How our BIN blocking control works, from designation to declined payment', { placeholder: 'subtitle' });
+    s.addText('Global Screening · Checkout.com', { placeholder: 'presenter' });
+    // Label the layout's checkpoint line as the payment chain
+    const { y, nodes, check } = G.motif;
+    ['Merchant', 'Checkout.com', 'Card scheme', 'Sanctioned issuer'].forEach((label, i) =>
+      T(s, label, { x: nodes[i] - 1.0, y: y + 0.22, w: 2.0, h: 0.3, fontSize: 12, color: i < 2 ? CANVAS : SLATE, align: 'center' }));
+    T(s, 'Blocked here', { x: check - 1.0, y: y - 0.75, w: 2.0, h: 0.3, fontSize: 12, bold: true, color: 'FFB4AC', align: 'center' });
     s.addNotes([
       'Opening. We are a payment service provider: we process card payments and card payouts for merchants, in real time and at volume.',
       'The question this talk answers: how do we make sure no card payment involving a sanctioned bank gets through, when we never hold a relationship with that bank?',
@@ -174,8 +130,9 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // 2. Why we block it ourselves
   // =====================================================================
   {
-    const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'Opening' });
+    const s = pres.addSlide({ masterName: L.TITLE_ONLY, sectionTitle: 'Opening' });
     s.addText('We block sanctioned banks ourselves, inside our own payment flow', { placeholder: 'title' });
+    tag(s, 'WHY WE DO IT');
 
     const y = 2.05, h = 1.05, w = 2.25, xs = [0.6, 3.89, 7.18, 10.48];
     const nodes = [
@@ -228,7 +185,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // =====================================================================
   pres.addSection({ title: 'How it works' });
   {
-    const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'How it works' });
+    const s = pres.addSlide({ masterName: L.TITLE_ONLY, sectionTitle: 'How it works' });
     s.addText('The block list is updated weekly, with an emergency route for major designations', { placeholder: 'title' });
     tracker(s, 1);
 
@@ -238,7 +195,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       ['Validate & approve', ['Manual check so legitimate banks are not blocked', 'Sanctions Team (2LOD) gives the final approval']],
       ['Deploy & verify', ['Controlled upload to fraud and payout systems', 'Post-deployment check that the block is live']],
     ];
-    const top = 1.85, cw = 2.78, gap = 0.333, ch = 2.5;
+    const top = 1.85, cw = 2.78, gap = 0.333, ch = 2.6;
     phases.forEach(([name, steps], i) => {
       const x = 0.6 + i * (cw + gap), human = i === 2;
       card(s, x, top, cw, ch, { fill: human ? AMBER : CANVAS, transparency: human ? 88 : undefined, border: human ? AMBER : null, name: 'phase-' + (i + 1) });
@@ -251,7 +208,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
     });
 
     // Weekly loop: phase 4 back to phase 1
-    const ly = top + ch + 0.45;
+    const ly = top + ch + 0.4;
     const c1 = 0.6 + cw / 2, c4 = 0.6 + 3 * (cw + gap) + cw / 2;
     polyline(s, [[c4, top + ch], [c4, ly], [c1, ly], [c1, top + ch + 0.02]], { dash: true, width: 1.5 });
     s.addShape(S.ROUNDED_RECTANGLE, { x: 2.3, y: ly - 0.19, w: 8.7, h: 0.38, rectRadius: 0.17, fill: { color: WHITE }, line: { color: SLATE, width: 1, dashType: 'dash' } });
@@ -259,8 +216,9 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
           { text: 'the full cycle runs again, and the Register is reconciled fortnightly against industry lists', options: { color: MUTED } }],
       { x: 2.4, y: ly - 0.19, w: 8.5, h: 0.38, fontSize: 12, align: 'center', valign: 'middle' });
 
-    s.addText('Output: the Sanctioned BIN List, used in Part 2', { shape: S.ROUNDED_RECTANGLE, rectRadius: 0.17, x: 8.72, y: 1.2, w: 4.01, h: 0.34,
-      fill: { color: INDIGO }, line: { type: 'none' }, fontSize: 12, bold: true, color: WHITE, align: 'center', valign: 'middle', margin: 0 });
+    { const x = 0.6 + 3 * (cw + gap);
+      s.addText('Output: Sanctioned BIN List', { shape: S.ROUNDED_RECTANGLE, rectRadius: 0.15, x: x + 0.25, y: top + ch - 0.45, w: cw - 0.5, h: 0.3,
+        fill: { color: INDIGO }, line: { type: 'none' }, fontSize: 11, bold: true, color: WHITE, align: 'center', valign: 'middle', margin: 0 }); }
 
     // Emergency route
     const ey = 5.3;
@@ -287,7 +245,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // 4. Part 2: every payment
   // =====================================================================
   {
-    const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'How it works' });
+    const s = pres.addSlide({ masterName: L.TITLE_ONLY, sectionTitle: 'How it works' });
     s.addText('Every card payment and payout is checked before it reaches the scheme', { placeholder: 'title' });
     tracker(s, 2);
 
@@ -346,7 +304,7 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // 5. Part 3: ownership
   // =====================================================================
   {
-    const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'How it works' });
+    const s = pres.addSlide({ masterName: L.TITLE_ONLY, sectionTitle: 'How it works' });
     s.addText('Every step has an owner, and people make the decisions', { placeholder: 'title' });
     tracker(s, 3);
 
@@ -393,8 +351,9 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // =====================================================================
   pres.addSection({ title: 'Lessons' });
   {
-    const s = pres.addSlide({ masterName: 'CONTENT', sectionTitle: 'Lessons' });
+    const s = pres.addSlide({ masterName: L.TITLE_ONLY, sectionTitle: 'Lessons' });
     s.addText('Four things that make BIN blocking harder than it looks', { placeholder: 'title' });
+    tag(s, 'LESSONS');
     const items = [
       [I.font, 'Names don\'t match across datasets', 'The same bank is written differently in sanctions lists and BIN databases: abbreviations, transliterations, legal forms. Matching on unique identifiers such as the LEI is the long-term fix.'],
       [I.hash, 'BINs aren\'t banks', 'One bank spans many 6- and 8-digit ranges, and some BINs are shared across territories. Too broad and you block legitimate banks; too narrow and you miss one.'],
@@ -421,8 +380,9 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
   // 7. Takeaways (dark)
   // =====================================================================
   {
-    const s = pres.addSlide({ masterName: 'DARK', sectionTitle: 'Lessons' });
+    const s = pres.addSlide({ masterName: L.TITLE_ONLY_DARK, sectionTitle: 'Lessons' });
     s.addText('Three things to take away', { placeholder: 'title' });
+    tag(s, 'TAKEAWAYS');
     [['We block it ourselves', 'The check sits inside our payment flow, before the scheme sees the payment. Partners don\'t carry our liability.'],
      ['The list is kept current', 'Weekly updates, a 2-hour Register update for major designations, and fortnightly reconciliation against industry lists.'],
      ['People make the decisions', 'The Sanctions Team approves every change to the list, including shared-BIN exceptions.']].forEach(([t, d], i) => {
@@ -432,21 +392,32 @@ function banner(slide, x, y, w, h, runs, fontSize = 13) {
       T(s, t, { x, y: 3.7, w: 3.9, h: 0.45, fontSize: 20, bold: true, color: WHITE });
       T(s, d, { x, y: 4.25, w: 3.8, h: 1.4, fontSize: 15, color: CANVAS });
     });
-    source(s, '§6.1, §7.2, §8.2, §9.1, §10.4', true);
+    source(s, '§6.1, §7.2, §8.2, §9.1, §10.4');
     s.addNotes('Close on the three ideas: we do it ourselves, before the scheme; the list is kept current on a weekly cycle with an emergency route; and a person approves every change to what gets blocked.');
   }
 
   // =====================================================================
-  // 8. Appendix: one-page reference
+  // 8. Closing
+  // =====================================================================
+  {
+    const s = pres.addSlide({ masterName: L.CLOSING, sectionTitle: 'Lessons' });
+    s.addText('Questions', { placeholder: 'title' });
+    s.addText('Global Screening · Checkout.com', { placeholder: 'body' });
+    s.addNotes('Questions. The appendix slide after this one has the whole process on one page, if a question needs it.');
+  }
+
+  // =====================================================================
+  // 9. Appendix: one-page reference
   // =====================================================================
   pres.addSection({ title: 'Appendix' });
   {
-    const s = pres.addSlide({ masterName: 'BLANK', sectionTitle: 'Appendix' });
+    const s = pres.addSlide({ masterName: L.BLANK, sectionTitle: 'Appendix' });
     s.addImage({ path: HANDOUT, x: 0, y: 0, w: 13.333, h: 7.5, altText: 'Appendix: one-page process flow of sanctioned bank BIN blocking', objectName: 'handout' });
     s.addNotes('Appendix: the whole process on one page. Backup for Q&A, and print the PDF version as a handout; it is too dense to present from.');
   }
 
-  await pres.writeFile({ fileName: OUT });
-  await applyTheme(OUT, THEME);
+  const tmp = OUT.replace(/\.pptx$/, '.tmp.pptx');
+  await pres.writeFile({ fileName: tmp });
+  await finish(tmp, THEME, { out: OUT });
   console.log('Wrote', OUT);
 })();
