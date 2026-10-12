@@ -19,6 +19,9 @@ the slide.
 
 - **Tone.** Measured and explanatory, in complete sentences. Use a clear structure with a theme for each
   section and a hand-over between sections.
+- **Motion.** Use click-to-reveal only where the audience votes or predicts first: cases, exercises,
+  "what's the answer here?" moments. Otherwise keep motion to a subtle fade. Never animate the key
+  message.
 - **Sources.** Cite a source for every regulatory statement (CLAUDE.md §2). Cite Checkout procedures by
   document and section.
 - **Data.** Use only anonymised or fictional cases. Never name a real customer or merchant (CLAUDE.md §4).

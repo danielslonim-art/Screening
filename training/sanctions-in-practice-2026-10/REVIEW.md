@@ -5,7 +5,7 @@
 | Reviewed | 12 October 2026 |
 | Audience | Operations analysts (L1 screening and payments) |
 | Original | 44-slide deck, shared via Drive |
-| Output | `sanctions-in-practice-analyst-edition.pptx`: 23 core slides plus 2 appendix slides, in the original's tone and four-part structure; every slide answers "in short / why it matters / what it means for you" |
+| Output | `sanctions-in-practice-analyst-edition.pptx`: 28 core slides plus 2 appendix slides, in the original's tone and four-part structure. One slide per sanctions regime; every slide answers "in short / why it matters / what it means for you"; transitions and click-reveal builds |
 | Status | **AI-drafted. Needs Sanctions Officer sign-off before delivery** (CLAUDE.md §1) |
 
 Slides are referred to by title, not number, because the original numbering may shift with edits.
@@ -53,10 +53,10 @@ The analyst edition keeps the original's tone, structure and flow, and condenses
    - a question to keep in mind
 
    It then hands over to the next part.
-3. **Regional detail cut to two comparison slides**, which show what changes the outcome.
+3. **One slide per regime:** MENA, Singapore, Hong Kong, UK, France / EU and US, in the original's order and on a common template, followed by one side-by-side comparison.
 4. **Case studies and the Atlas Bridge exercise kept** in the original format, shortened.
 
-The result is 23 core slides instead of 44. Before anyone presents either version, the edition also fixes
+The result is 28 core slides instead of 44. Before anyone presents either version, the edition also fixes
 **ten accuracy and risk issues** (section 2).
 
 ---
@@ -69,14 +69,14 @@ Ranked by severity.
 |---|---|---|---|
 | 1 | *Internal case example — anonymised* | The case is labelled anonymised but **names the merchant**. It also refers to law-enforcement engagement. If the deck circulates, that is a confidentiality breach and a tipping-off risk, and it breaks our own data-handling rule (CLAUDE.md §4). | Removed. If it is needed, re-anonymise it fully ("Merchant X") and clear it with the case owner and MLRO. |
 | 2 | *Answer reveal — correct response: B* (insurance case) | The flow box reads **"Clear only if truly matched"**. That is the inverse of the rule. | Now reads "Clear only if shown **not** to be the listed person". |
-| 3 | Whole deck | **UK strict liability is never mentioned.** It is the single most important UK nuance. Since 15 June 2022 OFSI can impose civil penalties without proving knowledge or suspicion (ECTEA 2022 s.54, amending PCA 2017 s.146). This applies to civil penalties only; criminal offences still need knowledge or reasonable cause to suspect. | Added to "Why do we care?" and to the UK comparison card. |
+| 3 | Whole deck | **UK strict liability is never mentioned.** It is the single most important UK nuance. Since 15 June 2022 OFSI can impose civil penalties without proving knowledge or suspicion (ECTEA 2022 s.54, amending PCA 2017 s.146). This applies to civil penalties only; criminal offences still need knowledge or reasonable cause to suspect. | Added to "Why do we care?" and to the UK regime slide. |
 | 4 | *How to avoid tipping off?* | Only the title is visible in the export. The most practical topic for analysts has no content. | New slide: do / don't wording for RFIs. Legal basis is POCA 2002 s.333A and TA 2000 s.21D. Customer messaging only through scripts approved by the Sanctions Officer or MLRO. |
 | 5 | *Bank of Scotland / OFSI* (two slides) | **The lesson and the date are wrong.** The deck says automated screening failed. In fact a PEP alert did fire, and staff wrongly concluded the person had been delisted. The passport spelling also differed from the list entry, and there was no route for escalating PEP alerts to sanctions. The penalty was **imposed 10 Nov 2025** and **published 26 Jan 2026**. | Corrected. The real story is a better lesson for analysts: an alert fired and a person discounted it. |
 | 6 | Whole deck | **The Citibank N.A. London penalty (£4.73m, imposed 11 Aug 2026) is missing.** It is OFSI's second-largest penalty, and every failure in it happened at operations level: <br>• the "PAO Sovcomflot" name variant generated no alert <br>• a backlog built up at third-level review <br>• guidance required proof of more than 50% ownership before restricting an account <br>• frozen-asset reports were up to 518 days late | Added to "Why do we care?", "Name variants" and Appendix B. |
 | 7 | *UK: ownership/control and reporting* | "A rejected payment is not treated like frozen assets" can be read as "reject means no report". Under reg 70 of the Russia Regs, the duty to report is triggered by knowledge or reasonable cause to suspect, whatever happened to the money. | Rewritten on the "Freeze, block, reject" slide. Also added: **never return funds to a designated person**, because returning them is itself making funds available. |
 | 8 | *Regional comparison* table, ownership row | Entries such as "Increasingly explicit" and "Expected in FI controls" give an analyst nothing to act on. The thresholds are never set side by side. The real differences: <br>• **UK** is the odd one out: more than 50%, and stakes held by *different* designated persons are not added together. <br>• **EU** (Best Practices ST 11623/24, July 2024) and **US** (OFAC 50% Rule): 50% or more, with stakes added together. | New ownership slide: one company, with US, EU and UK answers side by side. The decision principle is the same for all three: do not rely on a single percentage threshold — escalate. |
-| 9 | *MENA* slides | The source cited is the **ADGM Rulebook**, which binds only ADGM-licensed firms. The UAE-wide sources are: <br>• Cabinet Decision 74/2020 <br>• EOCN guidance <br>• Decree-Law 10/2025, which repealed Decree-Law 20/2018 <br>Also missing: the UAE Local Terrorist List; CNMR/PNMR filing within 5 business days; and the rule that a suspended partial match **stays suspended until EOCN instructs**. | Corrected on the UAE, Singapore and Hong Kong comparison slide. Still open: confirm which UAE supervisor (CBUAE, DFSA or FSRA) covers the Checkout entity. |
-| 10 | *Singapore* slides | Instrument names are out of date: <br>• The MAS Act regulations are now the FSM (Sanctions and Freezing of Assets of Persons) Regulations 2023. <br>• The March 2022 Russia notice SNR-N01 was replaced on 30 June 2025 (amended Feb 2026). It names four banks plus the entities they own or control, and adds a lending ban. | Corrected on the UAE, Singapore and Hong Kong comparison slide. |
+| 9 | *MENA* slides | The source cited is the **ADGM Rulebook**, which binds only ADGM-licensed firms. The UAE-wide sources are: <br>• Cabinet Decision 74/2020 <br>• EOCN guidance <br>• Decree-Law 10/2025, which repealed Decree-Law 20/2018 <br>Also missing: the UAE Local Terrorist List; CNMR/PNMR filing within 5 business days; and the rule that a suspended partial match **stays suspended until EOCN instructs**. | Corrected on the MENA regime slide. Still open: confirm which UAE supervisor (CBUAE, DFSA or FSRA) covers the Checkout entity. |
+| 10 | *Singapore* slides | Instrument names are out of date: <br>• The MAS Act regulations are now the FSM (Sanctions and Freezing of Assets of Persons) Regulations 2023. <br>• The March 2022 Russia notice SNR-N01 was replaced on 30 June 2025 (amended Feb 2026). It names four banks plus the entities they own or control, and adds a lending ban. | Corrected on the Singapore regime slide. |
 
 Smaller issues, also fixed:
 
@@ -104,15 +104,15 @@ Smaller issues, also fixed:
 | Original | Analyst edition |
 |---|---|
 | Title · Why do we care? | **1** Title. Same strapline, "A decision discipline, not a list-check", and the same "one payment, six rulebooks" image. <br>**2** Why do we care? Covers strict liability, Citibank and Bank of Scotland |
-| Learning objectives | **3** Learning objectives. Kept, and now the spine of the deck: four parts, each with its own opener (**4**, **8**, **14**, **19**) |
+| Learning objectives | **3** Learning objectives. Kept, and now the spine of the deck: four parts, each with its own opener (**4**, **8**, **19**, **24**) |
 | Common control model · What counts as a sanctions exposure? · First response / triage · Operating model · Analyst decision checklist | **Part 1:** <br>**5** Eight principles <br>**6** What counts as a sanctions exposure? <br>**7** First response to a potential true match, with the analyst / L2–L3 boundary and the escalation path |
 | Transaction screening divider · Regional lens overview | Replaced by the part openers |
-| MENA ×2 · UK ×2 · France ×2 · US ×2 · Singapore ×2 · Hong Kong ×2 · Regional comparison ×2 | **Part 2:** <br>**9** Which rules apply? ("Apply every layer", moved up from the MENA slide) <br>**10** UK, EU and US <br>**11** UAE, Singapore and Hong Kong <br>**12** Ownership and control <br>**13** Freeze, block and reject |
-| Tipping off (title only) · name variants (new) | **Part 3:** <br>**15** Name variants <br>**16** How to avoid tipping off |
-| Case studies 01–03 · insurance practice case | **Part 3:** **17–18** Case studies, two per slide, in the original's Alert / Decision / Record format |
-| Joined case note · Defensible case note | **Part 4:** **20** The defensible case note |
-| Atlas Bridge exercise (9 slides) | **Part 4:** <br>**21** Three teams, one risk picture <br>**22** Choose C — the risks converge |
-| Close · Thank you | **23** Key takeaways: one per part, plus the thank-you |
+| MENA ×2 · Singapore ×2 · Hong Kong ×2 · UK ×2 · France ×2 · US ×2 · Regional comparison ×2 | **Part 2:** <br>**9** Which rules apply? ("Apply every layer", moved up from the MENA slide) <br>**10–15** One slide per regime, in the original's order: MENA, Singapore, Hong Kong, UK, France / EU, US. The two original slides per regime become one, and each regime's real-life case moves onto its own slide <br>**16** Six regimes side by side: the original comparison table, with every cell made actionable <br>**17** Ownership and control <br>**18** Freeze, block and reject |
+| Tipping off (title only) · name variants (new) | **Part 3:** <br>**20** Name variants <br>**21** How to avoid tipping off |
+| Case studies 01–03 · insurance practice case | **Part 3:** **22–23** Case studies, two per slide, in the original's Alert / Decision / Record format |
+| Joined case note · Defensible case note | **Part 4:** **25** The defensible case note |
+| Atlas Bridge exercise (9 slides) | **Part 4:** <br>**26** Three teams, one risk picture <br>**27** Choose C — the risks converge |
+| Close · Thank you | **28** Key takeaways: one per part, plus the thank-you |
 | Banque Misr ×2 · MAS ×2 · Bittrex · control maturity ladder · HK LegCo 2019 · internal merchant case | Appendix B (one line each) or cut. Dual-use / SBDU content is cut as out of scope for payment analysts |
 | (new) | Appendix A: Acronyms. The original uses about 15 acronyms without defining them |
 
@@ -139,10 +139,36 @@ Smaller issues, also fixed:
 - **Process prompts on content slides.** Content slides also point back to the process where it matters,
   for example "In your process: confirm the legal entity, payment route and currency from the case
   record."
-- **Regime cards.** Each card answers the same four questions as the original comparison table: list
-  source, ownership / control, reporting route, key nuance.
+- **Regime slides.** Every regime uses the same template, so analysts know where to look:
+  - **The rulebook:** lists to screen, who is in charge, ownership / control, required action, and who
+    is told (via L2).
+  - **Watch for:** the traps specific to that regime.
+  - **A real-life lesson.**
+  - **Wayfinding:** a row of six regime markers shows which regime you are on.
+- **Comparison slide.** The side-by-side slide uses the same rows as the original comparison table, with
+  every cell made actionable.
+- **Unverified points.** Where a point could not be verified (for example, the Saudi list detail, or an
+  ownership threshold in MENA, Singapore or Hong Kong), the slide says "L2 assesses" rather than
+  asserting it.
 - **Sources and notes.** Each slide has a source line. Trainer narration and the bridges between parts
   are in the speaker notes.
+
+**Animation and transitions:**
+
+- **Transitions.** Every slide has a fade. Part openers push up, to mark each new part.
+- **Click to reveal**, used where the original asks the room to vote or predict first:
+  - **Case studies:** the Decision and Record boxes, one case per click.
+  - **Team exercise:** each evidence drop, then the vote.
+  - **Ownership slide:** the US, EU and UK answers, one per click.
+- **Automatic fade-ins** that set the pace without extra clicks:
+  - the four parts on the roadmap and the close
+  - the columns on each part opener
+  - Pause → Investigate → Escalate
+  - the process steps on the freeze slide
+  - each regime's "Watch for" and lesson boxes
+  - the team handoffs on the answer slide
+- **Static by design.** The "In short" line and the "Why it matters / What it means for you" band never
+  animate, so the message is always on screen.
 
 ---
 
