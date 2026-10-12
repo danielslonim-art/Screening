@@ -5,10 +5,34 @@
 | Reviewed | 12 October 2026 |
 | Audience | Operations analysts (L1 screening and payments) |
 | Original | 44-slide deck, shared via Drive |
-| Output | `sanctions-in-practice-analyst-edition.pptx`: 23 core slides plus 2 appendix slides, in the original's tone and four-part structure |
+| Output | `sanctions-in-practice-analyst-edition.pptx`: 23 core slides plus 2 appendix slides, in the original's tone and four-part structure; every slide answers "in short / why it matters / what it means for you" |
 | Status | **AI-drafted. Needs Sanctions Officer sign-off before delivery** (CLAUDE.md §1) |
 
 Slides are referred to by title, not number, because the original numbering may shift with edits.
+
+## Content standard: three questions on every slide
+
+Every piece of information on a slide has to earn its place by answering three questions for the analyst:
+
+1. **In short:** what are we telling you, in very simple terms? This is a plain-English line directly
+   under every headline.
+2. **Why it matters:** why should you care? This sits in the band at the foot of every content slide.
+3. **What it means for you:** what do you do with this in our process? This also sits in the foot band,
+   and it names the process step or tool: the Firco queue, the 4-eye check, the L2 path, Orbis, the RFI
+   template, the Country Risk Rating and HRTC registers, TM / EDR referral.
+
+Where the questions appear:
+
+- **Content slides:** all three, as above.
+- **Part openers:** "Why it matters" and "What it means for you" columns.
+- **Appendix B:** a "What it means for you" column.
+- **Learning objectives and the close:** the whole session in one sentence:
+
+> **If in doubt, don't let it go: stop the payment, check who is really behind it and every country it
+> touches, pass anything unclear to L2 — and write down why.**
+
+If a fact on a slide cannot answer "why should I care?" and "what does it mean for me in our process?",
+it moves to the speaker notes or the facilitator appendix.
 
 ---
 
@@ -93,6 +117,9 @@ Smaller issues, also fixed:
 | (new) | Appendix A: Acronyms. The original uses about 15 acronyms without defining them |
 
 **How the original's tone and flow are kept:**
+
+- **The three questions.** Every content slide follows the content standard above: an "In short" line
+  under the headline, and a "Why it matters / What it means for you" band at the foot.
 
 - **Labels and headlines.** Every slide keeps the original's uppercase label, now prefixed with its part
   (e.g. "PART 2 · REGIONAL COMPARISON"). Headlines are full sentences or the original's own titles.
