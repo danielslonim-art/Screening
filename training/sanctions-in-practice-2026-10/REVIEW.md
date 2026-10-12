@@ -5,7 +5,7 @@
 | Reviewed | 12 October 2026 |
 | Audience | Operations analysts (L1 screening and payments) |
 | Original | 44-slide deck, shared via Drive |
-| Output | `sanctions-in-practice-analyst-edition.pptx`: 28 core slides plus 2 appendix slides, in the original's tone and four-part structure. One slide per sanctions regime; every slide answers "in short / why it matters / what it means for you"; transitions and click-reveal builds |
+| Output | `sanctions-in-practice-analyst-edition.pptx`: 29 core slides plus 2 appendix slides, in the original's tone and four-part structure. One slide per sanctions regime; every slide answers "in short / why it matters / what it means for you"; transitions and click-reveal builds |
 | Status | **AI-drafted. Needs Sanctions Officer sign-off before delivery** (CLAUDE.md §1) |
 
 Slides are referred to by title, not number, because the original numbering may shift with edits.
@@ -56,7 +56,7 @@ The analyst edition keeps the original's tone, structure and flow, and condenses
 3. **One slide per regime:** MENA, Singapore, Hong Kong, UK, France / EU and US, in the original's order and on a common template, followed by one side-by-side comparison.
 4. **Case studies and the Atlas Bridge exercise kept** in the original format, shortened.
 
-The result is 28 core slides instead of 44. Before anyone presents either version, the edition also fixes
+The result is 29 core slides instead of 44. Before anyone presents either version, the edition also fixes
 **ten accuracy and risk issues** (section 2).
 
 ---
@@ -103,16 +103,16 @@ Smaller issues, also fixed:
 
 | Original | Analyst edition |
 |---|---|
-| Title · Why do we care? | **1** Title. Same strapline, "A decision discipline, not a list-check", and the same "one payment, six rulebooks" image. <br>**2** Why do we care? Covers strict liability, Citibank and Bank of Scotland |
-| Learning objectives | **3** Learning objectives. Kept, and now the spine of the deck: four parts, each with its own opener (**4**, **8**, **19**, **24**) |
-| Common control model · What counts as a sanctions exposure? · First response / triage · Operating model · Analyst decision checklist | **Part 1:** <br>**5** Eight principles <br>**6** What counts as a sanctions exposure? <br>**7** First response to a potential true match, with the analyst / L2–L3 boundary and the escalation path |
+| Title · Why do we care? | **1** Title. Same strapline, "A decision discipline, not a list-check", and the same "one payment, six rulebooks" image. <br>**2** Agenda (new): a timed running order covering the four parts, the format of each (briefing, walk-through, practice with votes, team exercise) and the slide ranges <br>**3** Why do we care? Covers strict liability, Citibank and Bank of Scotland |
+| Learning objectives | **4** Learning objectives. Kept, and now the spine of the deck: four parts, each with its own opener (**5**, **9**, **20**, **25**) |
+| Common control model · What counts as a sanctions exposure? · First response / triage · Operating model · Analyst decision checklist | **Part 1:** <br>**6** Eight principles <br>**7** What counts as a sanctions exposure? <br>**8** First response to a potential true match, with the analyst / L2–L3 boundary and the escalation path |
 | Transaction screening divider · Regional lens overview | Replaced by the part openers |
-| MENA ×2 · Singapore ×2 · Hong Kong ×2 · UK ×2 · France ×2 · US ×2 · Regional comparison ×2 | **Part 2:** <br>**9** Which rules apply? ("Apply every layer", moved up from the MENA slide) <br>**10–15** One slide per regime, in the original's order: MENA, Singapore, Hong Kong, UK, France / EU, US. The two original slides per regime become one, and each regime's real-life case moves onto its own slide <br>**16** Six regimes side by side: the original comparison table, with every cell made actionable <br>**17** Ownership and control <br>**18** Freeze, block and reject |
-| Tipping off (title only) · name variants (new) | **Part 3:** <br>**20** Name variants <br>**21** How to avoid tipping off |
-| Case studies 01–03 · insurance practice case | **Part 3:** **22–23** Case studies, two per slide, in the original's Alert / Decision / Record format |
-| Joined case note · Defensible case note | **Part 4:** **25** The defensible case note |
-| Atlas Bridge exercise (9 slides) | **Part 4:** <br>**26** Three teams, one risk picture <br>**27** Choose C — the risks converge |
-| Close · Thank you | **28** Key takeaways: one per part, plus the thank-you |
+| MENA ×2 · Singapore ×2 · Hong Kong ×2 · UK ×2 · France ×2 · US ×2 · Regional comparison ×2 | **Part 2:** <br>**10** Which rules apply? ("Apply every layer", moved up from the MENA slide) <br>**11–16** One slide per regime, in the original's order: MENA, Singapore, Hong Kong, UK, France / EU, US. The two original slides per regime become one, and each regime's real-life case moves onto its own slide <br>**17** Six regimes side by side: the original comparison table, with every cell made actionable <br>**18** Ownership and control <br>**19** Freeze, block and reject |
+| Tipping off (title only) · name variants (new) | **Part 3:** <br>**21** Name variants <br>**22** How to avoid tipping off |
+| Case studies 01–03 · insurance practice case | **Part 3:** **23–24** Case studies, two per slide, in the original's Alert / Decision / Record format |
+| Joined case note · Defensible case note | **Part 4:** **26** The defensible case note |
+| Atlas Bridge exercise (9 slides) | **Part 4:** <br>**27** Three teams, one risk picture <br>**28** Choose C — the risks converge |
+| Close · Thank you | **29** Key takeaways: one per part, plus the thank-you |
 | Banque Misr ×2 · MAS ×2 · Bittrex · control maturity ladder · HK LegCo 2019 · internal merchant case | Appendix B (one line each) or cut. Dual-use / SBDU content is cut as out of scope for payment analysts |
 | (new) | Appendix A: Acronyms. The original uses about 15 acronyms without defining them |
 
@@ -161,7 +161,7 @@ Smaller issues, also fixed:
   - **Team exercise:** each evidence drop, then the vote.
   - **Ownership slide:** the US, EU and UK answers, one per click.
 - **Automatic fade-ins** that set the pace without extra clicks:
-  - the four parts on the roadmap and the close
+  - the agenda rows, and the four parts on the roadmap and the close
   - the columns on each part opener
   - Pause → Investigate → Escalate
   - the process steps on the freeze slide
