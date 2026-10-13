@@ -108,7 +108,7 @@ Smaller issues, also fixed:
 
 | Original | Analyst edition |
 |---|---|
-| Title · Why do we care? | **1** Title. Same strapline, "A decision discipline, not a list-check", and the same "one payment, six rulebooks" image. <br>**2** Agenda (new): each section, what it covers, its format (briefing, walk-through, practice with votes, Q&A) and its slide range <br>**3** Why do we care? Covers strict liability, Citibank and Bank of Scotland |
+| Title · Why do we care? | **1** Title. Same strapline, "A decision discipline, not a list-check", and the same "one payment, six rulebooks" image. <br>**2** Agenda (new): the five parts, one plain line each. Slide ranges are in the speaker notes <br>**3** Why do we care? Covers strict liability, Citibank and Bank of Scotland |
 | Learning objectives | **4** Learning objectives. Kept, and now the spine of the deck: four teaching parts, each with its own opener (**5**, **9**, **20**, **23**), then the hands-on section (**25**) |
 | Common control model · What counts as a sanctions exposure? · First response / triage · Operating model · Analyst decision checklist | **Part 1:** <br>**6** Eight principles <br>**7** What counts as a sanctions exposure? <br>**8** First response to a potential true match, with the analyst / L2–L3 boundary and the escalation path |
 | Transaction screening divider · Regional lens overview | Replaced by the part openers |
